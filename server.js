@@ -1,5 +1,5 @@
 //peerjs --port 3001
-
+//npm run dev
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
