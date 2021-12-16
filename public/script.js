@@ -3,11 +3,17 @@
 const socket = io('/');
 const myPeer = new Peer(undefined, {    //undefined so the server generate ids
   // host: '/',
-  port: '3001'
+  // port: '3001'
   // config: {'iceServers': [
   //   { url: 'stun:stun.l.google.com:19302' },
   //   { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' }
   // ]}
+  host: "/",
+  port: 3001,
+  path: '/peerjs',
+  config: {
+      'iceServers': [{ url: 'stun:stun1.l.google.com:19302' }]
+  }
 });
 
 const peers = {};
