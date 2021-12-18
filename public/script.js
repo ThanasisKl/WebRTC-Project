@@ -1,20 +1,10 @@
-
-// var socket = io.connect("http://localhost:3000");
 const socket = io('/');
-const myPeer = new Peer(undefined, {    //undefined so the server generate ids
-  // host: '/',
-  // port: '3001'
-  // config: {'iceServers': [
-  //   { url: 'stun:stun.l.google.com:19302' },
-  //   { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' }
-  // ]}
-  host: "/",
-  port: 3001,
-  path: '/peerjs',
-  config: {
-      'iceServers': [{ url: 'stun:stun1.l.google.com:19302' }]
-  }
-});
+
+var myPeer = new Peer(undefined,{
+	host: location.hostname,
+	port: location.port || (location.protocol === 'https:' ? 443 : 80),
+	path: '/peerjs'
+})
 
 const peers = {};
 

@@ -31,5 +31,10 @@ io.on('connection', socket => {
       });
     });
 });
-  
-server.listen(3000,() => console.log('listening at port 3000'));
+
+let port = 80;
+srv = server.listen(port,() => console.log(`listening at port ${port}`));
+
+app.use('/peerjs', require('peer').ExpressPeerServer(srv, {
+	debug: true
+}))
