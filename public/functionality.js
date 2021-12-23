@@ -1,6 +1,7 @@
 window.onload =  function(){
     document.getElementById("create_call_btn").addEventListener("click", function(){
         if(checkNameIsNotEmpty()){
+            setLocalName();
             window.location='/login';
         }
     });
@@ -9,7 +10,7 @@ window.onload =  function(){
         if(checkNameIsNotEmpty()){
             if(checkCodeIsNotEmpty()){
                 const room_code = document.getElementById("code_input").value;
-                console.log(room_code);
+                setLocalName();
                 window.location=`/${room_code}`;
             }
         }
@@ -46,4 +47,9 @@ function showWarningMessageCode(){
     setTimeout(function(){
         document.getElementById("code_warning").innerHTML = "";
     },1500);
+}
+
+function setLocalName(){
+    const name = document.getElementById("name_input").value;
+    localStorage.setItem('users_name', name);
 }

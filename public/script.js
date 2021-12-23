@@ -7,7 +7,9 @@ var myPeer = new Peer(undefined,{
 })
 
 const peers = {};
-
+var muteVideo = false;
+var muteAudio = false;
+var userStream;
 myPeer.on('open', id => {
     socket.emit('join-room', ROOM_ID, id)
 });
@@ -30,8 +32,11 @@ btn.addEventListener("click",function(){
 
 
 socket.on("chat",function(data){
-  chatDiv.innerHTML += `<p class="chat-p"> user: ${data.message}</p>`;
-  console.log("user:",data.message);
+  const users_name = localStorage.getItem('users_name');
+  if(data.message.trim() !== ""){
+    chatDiv.innerHTML += `<p class="chat-p"> ${users_name}: ${data.message}</p>`;
+    console.log(users_name,data.message);
+  }
 });
 
 const videoGrid = document.getElementById('video-grid');
@@ -42,7 +47,9 @@ navigator.mediaDevices.getUserMedia({
   video: true,
   audio: true
 }).then(stream => {
+  userStream = stream;
   addVideoStream(myVideo, stream);
+  console.log(muteVideo);
 
   myPeer.on('call',call => {  //when someone calls we send him our stream
     call.answer(stream)
@@ -65,7 +72,7 @@ socket.on('user-disconnected', userId => {
 function addVideoStream(video, stream) {
   video.srcObject = stream;
   video.addEventListener('loadedmetadata', () => {
-    video.play();              //when video is loaded play it
+    video.play();    //when video is loaded play it
   })
   videoGrid.append(video);
 }
@@ -84,3 +91,33 @@ function connectToNewUser(userId, stream) { //calls user with id userId and send
 
   peers[userId] = call;
 }
+
+document.getElementById("end_call").addEventListener("click", function(){
+  window.location='/';
+});
+
+document.getElementById("mute_audio").addEventListener("click", function(){
+  if(!muteAudio){ 
+    console.log("Mute Audio");
+    document.getElementById("mute_audio").className = "fas fa-microphone-alt-slash";
+  }
+  else{ 
+    console.log("Unmute Audio");
+    document.getElementById("mute_audio").className = "fas fa-microphone-alt";
+  }
+  userStream.getAudioTracks().forEach(track => track.enabled = muteAudio);
+  muteAudio = !muteAudio;
+});
+
+document.getElementById("mute_video").addEventListener("click", function(){
+  if(!muteVideo){ 
+    console.log("Mute Video");
+    document.getElementById("mute_video").className = "fas fa-video-slash";
+  }else{
+    console.log("Unmute Video");
+    document.getElementById("mute_video").className = "fas fa-video";
+  }
+
+  userStream.getVideoTracks().forEach(track => track.enabled = muteVideo);
+  muteVideo = !muteVideo;
+});
