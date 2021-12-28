@@ -11,7 +11,7 @@
   <script src="/socket.io/socket.io.js" defer></script>
   <script src="script.js" defer></script>
   <title>Call Room</title>
-  <link rel="stylesheet" type="text/css" href="css/roomStyle.css">
+  <link rel="stylesheet" type="text/css" href="css/room_style.css">
   <style>
     #video-grid {
       display: grid;
@@ -25,21 +25,39 @@
       height: 100%;
       object-fit: cover;
     }
+
+    main{
+      display: grid;
+      grid-template-columns: 0.8fr 0.2fr;
+    }
+
+    .main_left {
+      grid-column: 1/ 2;
+    }
+
+    .main_right {
+      grid-column: 2/ 3;
+      background-color: #242324;
+      border-left: 1px solid #3d3d42;
+    }
   </style>
 </head>
 <body>
-  <div id="video-grid"></div>
-  <br>
-  <input type="text" id="message">
-  <!-- <button id="send-btn">Send</button> -->
-  <i class="fas fa-paper-plane" id="send-btn"></i>
-  <i class="fas fa-phone-slash" id="end_call"></i>
-  <!-- <button id="end_call">end call</button> -->
-  <!-- <button id="mute_audio">Mute Audio</button> -->
-  <i class="fas fa-microphone-alt" id="mute_audio"></i>
-  <!-- <button id="mute_video">Mute Video</button> -->
-  <i class="fas fa-video" id="mute_video"></i>
-  <h1>chat</h1>
-  <div id="chat-div"></div>
+  <main>
+    <div id="main_left">
+      <div id="video-grid"></div>
+      <br>
+      <i class="fas fa-phone-slash" id="end_call"></i>
+      <i class="fas fa-microphone-alt" id="mute_audio"></i>
+      <i class="fas fa-video" id="mute_video"></i>
+      <button id="showMembers">Show Participants</button>
+    </div>
+    <div id="main_right">
+      <h1>chat</h1>
+      <div id="chat-div"></div>
+      <input type="text" id="message">
+      <i class="fas fa-paper-plane" id="send-btn"></i>
+    </div>
+  </main>
 </body>
 </html>

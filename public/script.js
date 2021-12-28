@@ -6,33 +6,38 @@ var myPeer = new Peer(undefined,{
 	path: '/peerjs'
 })
 
+const users_name = localStorage.getItem('users_name');
+
 const peers = {};
 var muteVideo = false;
 var muteAudio = false;
 var userStream;
+
 myPeer.on('open', id => {
     socket.emit('join-room', ROOM_ID, id)
 });
 
-socket.on('user-connected',userId => {
-    console.log("user connected "+userId);
+socket.on('user-connected', userId => {
+  console.log("user connected "+userId);
 });
 
 var message = document.getElementById("message");
-// var handle = document.getElementById("handle");
-var handle = "name";
 var btn = document.getElementById("send-btn");
 var chatDiv = document.getElementById("chat-div");
-var feedback = document.getElementById("feedback");
 
 btn.addEventListener("click",function(){
-  socket.emit("chat",{message:message.value,handle:handle});
+  socket.emit("chat",{message:message.value});
   message.value = "";
 });
 
+document.querySelector('#message').addEventListener('keypress', function (e) { //when enter button is pressed and sends the message to the server
+  if (e.key === 'Enter') {
+    socket.emit("chat",{message:message.value});
+    message.value = "";
+  }
+});
 
-socket.on("chat",function(data){
-  const users_name = localStorage.getItem('users_name');
+socket.on("chat",function(data){  // if message not empty then show it
   if(data.message.trim() !== ""){
     chatDiv.innerHTML += `<p class="chat-p"> ${users_name}: ${data.message}</p>`;
     console.log(users_name,data.message);
@@ -92,11 +97,12 @@ function connectToNewUser(userId, stream) { //calls user with id userId and send
   peers[userId] = call;
 }
 
-document.getElementById("end_call").addEventListener("click", function(){
+document.getElementById("end_call").addEventListener("click", function(){  //when somebody leaves the call, goes to index page
+  deleteParticipant();
   window.location='/';
 });
 
-document.getElementById("mute_audio").addEventListener("click", function(){
+document.getElementById("mute_audio").addEventListener("click", function(){  //mute and unmute audio
   if(!muteAudio){ 
     console.log("Mute Audio");
     document.getElementById("mute_audio").className = "fas fa-microphone-alt-slash";
@@ -109,7 +115,7 @@ document.getElementById("mute_audio").addEventListener("click", function(){
   muteAudio = !muteAudio;
 });
 
-document.getElementById("mute_video").addEventListener("click", function(){
+document.getElementById("mute_video").addEventListener("click", function(){  //mute and unmute video
   if(!muteVideo){ 
     console.log("Mute Video");
     document.getElementById("mute_video").className = "fas fa-video-slash";
@@ -121,3 +127,39 @@ document.getElementById("mute_video").addEventListener("click", function(){
   userStream.getVideoTracks().forEach(track => track.enabled = muteVideo);
   muteVideo = !muteVideo;
 });
+
+// document.getElementById("showMembers").addEventListener("click", async function(){
+//   const response = await fetch(`/participants`,{
+//     method:'GET',
+//     headers:{
+//       'Content-Type': 'application/json'
+//     }
+//   });
+//   console.log(response)
+// });
+
+window.onload = async function(){   // when somebody joins call sends his name to the server to add him in participants list
+    const response = await fetch(`/add`,{
+      method:'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        name:users_name
+      })
+    }
+    );
+}
+
+async function deleteParticipant(){  // when somebody leaves call sends his name to the server to remove him from participants list
+  const response = await fetch(`/remove`,{
+    method:'DELETE',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body:JSON.stringify({
+      name:users_name
+    })
+  }
+  );
+}
