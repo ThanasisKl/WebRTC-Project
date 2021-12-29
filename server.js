@@ -1,11 +1,15 @@
 //peerjs --port 3001
 //npm run dev
 const express = require('express');
+const upload = require('express-fileupload');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const { v4: uuidV4 } = require('uuid');
 let participants = [];
+
+
+app.use(upload());
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -22,6 +26,28 @@ app.get('/:room', (req, res) => {
 
 app.get('/', (req, res) => {
   res.render('index')
+});
+
+app.post('/',(req,res)=>{
+  if(req.files){
+    console.log(req.files);
+    let file = req.files.file;
+    let filename = file.name;
+    console.log(filename);
+    file.mv('./uploads/' + filename,function(err){
+      if(err){
+        // res.status(500).json({
+        //   msg:"Error from database"
+        // });
+        console.log("Error from database");
+      }else{
+        // res.status(200).json({
+        //   msg:"File Uploaded"
+        // });
+        console.log("File Uploaded");      
+      }
+    });
+  }
 });
 
 app.post('/add', (req, res) => {  //adds the name of person who joins the call
