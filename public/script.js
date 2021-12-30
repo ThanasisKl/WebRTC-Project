@@ -128,15 +128,22 @@ document.getElementById("mute_video").addEventListener("click", function(){  //m
   muteVideo = !muteVideo;
 });
 
-// document.getElementById("showMembers").addEventListener("click", async function(){
-//   const response = await fetch(`/participants`,{
-//     method:'GET',
-//     headers:{
-//       'Content-Type': 'application/json'
-//     }
-//   });
-//   console.log(response)
-// });
+document.getElementById("showMembers").addEventListener("click",  function(){
+  fetch(`/members`,{
+    method:'PUT',
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(members => {
+    console.log(members);
+    // showParticipants(members);
+  })
+  .catch(err => {
+    console.log(`Error: ${err}`);
+  })
+});
 
 window.onload = async function(){   // when somebody joins call sends his name to the server to add him in participants list
     const response = await fetch(`/add`,{

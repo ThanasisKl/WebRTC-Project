@@ -1,5 +1,3 @@
-//peerjs --port 3001
-//npm run dev
 const express = require('express');
 const upload = require('express-fileupload');
 const app = express();
@@ -66,10 +64,10 @@ app.delete('/remove', (req, res) => {  //removes the name of person who leaves t
   console.log("DELETE REQUEST (Remove Participant) "+ participants);
 });
 
-// app.get('/participants',(req,res)=>{
-//   console.log(json(participants))
-//   res.json(participants);
-// });
+app.put('/members',(req,res)=>{
+  console.log("In....")
+  res.json(participants);
+});
 
 io.on('connection', socket => {
     socket.on('join-room', (roomId, userId) => {
