@@ -4,6 +4,8 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const { v4: uuidV4 } = require('uuid');
+const fs = require('fs');
+const uploadsFolder = 'public/uploads/';
 let participants = [];
 
 
@@ -32,7 +34,7 @@ app.post('/',(req,res)=>{
     let file = req.files.file;
     let filename = file.name;
     console.log(filename);
-    file.mv('./uploads/' + filename,function(err){
+    file.mv('./public/uploads/' + filename,function(err){
       if(err){
         // res.status(500).json({
         //   msg:"Error from database"
@@ -64,9 +66,14 @@ app.delete('/remove', (req, res) => {  //removes the name of person who leaves t
   console.log("DELETE REQUEST (Remove Participant) "+ participants);
 });
 
-app.put('/members',(req,res)=>{
-  console.log("In....")
+app.put('/members',(req,res)=>{ //?
   res.json(participants);
+});
+
+app.put('/files',(req,res)=>{  //?
+  fs.readdir(uploadsFolder, (err, files) => {
+    res.json(files);
+  });
 });
 
 io.on('connection', socket => {
@@ -89,4 +96,4 @@ srv = server.listen(port,() => console.log(`listening at port ${port}`));
 
 app.use('/peerjs', require('peer').ExpressPeerServer(srv, {
 	debug: true
-}))
+}));

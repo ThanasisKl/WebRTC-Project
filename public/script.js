@@ -24,6 +24,9 @@ socket.on('user-connected', userId => {
 var message = document.getElementById("message");
 var btn = document.getElementById("send-btn");
 var chatDiv = document.getElementById("chat-div");
+var filesDiv = document.getElementById("files-div");
+var membersDiv = document.getElementById("members-div");
+
 
 btn.addEventListener("click",function(){
   socket.emit("chat",{message:message.value});
@@ -137,8 +140,25 @@ document.getElementById("showMembers").addEventListener("click",  function(){
   })
   .then(response => response.json())
   .then(members => {
-    console.log(members);
-    // showParticipants(members);
+    // console.log(members);
+    showParticipants(members);
+  })
+  .catch(err => {
+    console.log(`Error: ${err}`);
+  })
+});
+
+document.getElementById("showFiles").addEventListener("click",  function(){
+  fetch(`/files`,{
+    method:'PUT',
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(files => {
+    // console.log(files);
+    showFiles(files);
   })
   .catch(err => {
     console.log(`Error: ${err}`);
@@ -169,4 +189,24 @@ async function deleteParticipant(){  // when somebody leaves call sends his name
     })
   }
   );
+}
+
+function showFiles(files_names){
+  if(filesDiv.innerHTML == ""){
+    for(let i=0;i<files_names.length;i++){
+      filesDiv.innerHTML += `<i class="fas fa-file-alt"><a href="/uploads/${files_names[i]}" download>${files_names[i]}</a></i><br/>`
+    }
+  }else{
+    filesDiv.innerHTML = "";
+  }
+}
+
+function showParticipants(members){
+  if(membersDiv.innerHTML == ""){
+    for(let i=0;i<members.length;i++){
+      membersDiv.innerHTML += `<i class="fas fa-user-astronaut">${members[i]}</i><br/>`
+    }
+  }else{
+    membersDiv.innerHTML = "";
+  }
 }
