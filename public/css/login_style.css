@@ -31,8 +31,12 @@ input{
     width: 50%;
     font-size: 1.2em;
     margin-bottom: 1em;
-    border: solid 2px #815d3e;
+    border-bottom: solid 2px #815d3e;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
     margin-right: 0.8em;
+    background-color:#fbeec1;
 }
 
 *{
@@ -46,9 +50,12 @@ button{
     font-size: 1.2em;
     padding-right:15px;
     padding-left:15px;
+    padding-top: 2px;
+    padding-bottom: 2px;
     background-color:#659dbd;
     color:antiquewhite;
-    border: solid 2px #815d3e;
+    box-shadow: #815d3e 0 2px 5px 0;
+    border-radius: 12px;
 }
 
 button:hover{

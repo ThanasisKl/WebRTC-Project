@@ -1,2 +1,160 @@
 
 @import "https://use.fontawesome.com/releases/v5.5.0/css/all.css";
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    grid-auto-rows: 300px;
+    gap: 5px;
+    margin-bottom: 350px;
+}
+  
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+/* 
+body{
+    display: grid;
+    grid-template-columns: 10fr 0.2fr;
+    grid-template-rows: minmax(10fr, 10fr) 0.2fr ;
+}
+
+.upper_left_section {
+    display: grid;
+    grid-column: 1/ 2;
+    grid-row: 1/ 2;
+}
+
+.upper_right_section {
+    display: grid;
+    grid-column: 2/ 3;
+    grid-row: 1/ 2;
+    /* background-color: #242324;
+    border-left: 1px solid #3d3d42; 
+}*/
+/*
+
+.bottom_left_section{
+    display: grid;
+    grid-column: 1/ 2;
+    grid-row: 2/ 3;
+}
+
+.bottom_right_section{
+    display: grid;
+    grid-column: 2/ 3;
+    grid-row: 2/ 3;
+} */
+
+main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: #383538;
+}
+.main_left{
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+}
+
+.main_right{
+    flex: 0.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #242324;
+    border-left: 1px solid #3d3d42;
+}
+
+.main_controls{
+    display: flex;
+    background-color: #1c1e20;
+    color: #d2d2d2;
+    padding: 40px 10px;
+    justify-content: space-between;
+}
+  
+.main_controls_block{
+    display: flex;
+}
+
+.main_header {
+    margin-bottom: auto;
+    color: #f5f5f5;
+    text-align: center;
+    padding: 20px;
+    border-bottom: 2px solid #3d3d42;
+}
+
+/* .main_message_container {
+
+} */
+
+#message {
+    font-size: 1.3em;
+    flex-grow: 1;
+    background-color: aqua;
+    border: none;
+    color: black;
+    user-select: none;
+    outline: none;
+    margin-bottom: 8px;
+    margin-left: 5px;
+}
+
+#all_messages li {
+    color: #fff;
+    list-style: none;
+    border-bottom: 1px solid #3d3d42;
+    padding: 10px 0;
+}
+
+#showFiles,#showMembers,#mute_video,#mute_audio,#end_call,#send-btn{
+    font-size: 1.3em;
+    color:aqua;
+}
+
+#showFiles:hover,#showMembers:hover,#mute_video:hover,#mute_audio:hover,#end_call:hover,#send-btn:hover{
+    color:blueviolet;
+}
+
+.sendfile-buttons{
+    border: none;
+    padding: 5px;
+}
+
+#files-div{
+    border-right: 1px solid #3d3d42;
+    border-left: 1px solid #3d3d42;
+    color:white;
+}
+
+#members-div{
+    color:white;
+    border-right: 1px solid #3d3d42;
+    border-left: 1px solid #3d3d42;
+}
+
+i{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.headers{
+    margin-bottom: 10px;
+    padding-right:4px;
+    padding-left: 4px;
+}

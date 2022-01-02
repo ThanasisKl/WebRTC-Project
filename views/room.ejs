@@ -12,60 +12,80 @@
   <script src="script.js" defer></script>
   <title>Call Room</title>
   <link rel="stylesheet" type="text/css" href="css/room_style.css">
-  <style>
-    #video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, 300px);
-      grid-auto-rows: 300px;
-      gap: 5px;
-    }
-    
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    main{
-      display: grid;
-      grid-template-columns: 0.8fr 0.2fr;
-    }
-
-    .main_left {
-      grid-column: 1/ 2;
-    }
-
-    .main_right {
-      grid-column: 2/ 3;
-      background-color: #242324;
-      border-left: 1px solid #3d3d42;
-    }
-  </style>
 </head>
 <body>
+  <!-- <main>
+      <div id="main-grid-container"> -->
+        <!-- <div id="upper_left_section">
+          <div id="video-grid"></div>
+        </div> -->
+        <!-- <br> -->
+      <!-- <div id="upper_right_section">
+        <h2>chat</h2>
+        <div id="chat-div"></div>
+      </div>
+      <div id="bottom_left_section">
+        <i class="fas fa-phone-slash" id="end_call"></i>
+        <i class="fas fa-microphone-alt" id="mute_audio" ></i>
+        <i class="fas fa-video" id="mute_video"></i>
+        <button id="showMembers">Show Participants</button>
+        <button id="showFiles">Show Files</button>
+      </div>
+      <div id="bottom_right_section">
+        <input type="text" id="message">
+        <i class="fas fa-paper-plane" id="send-btn"></i>
+        <iframe name="hiddenFrame" width="0" height="0" style="display: none;" src="" frameborder="0"></iframe>
+        <form method="POST" action="/" enctype="multipart/form-data" target="hiddenFrame">
+          <input type="file" name="file"/>
+          <input type="submit" value="Upload"/>
+        </form>
+      </div>
+        <div id="files-div"></div>
+        <div id="members-div"></div> -->
+    <!-- </div>
+  </main> -->
   <main>
-    <div id="main_left">
+    <div class="main_left">
       <div id="video-grid"></div>
-      <br>
-      <i class="fas fa-phone-slash" id="end_call"></i>
-      <i class="fas fa-microphone-alt" id="mute_audio" ></i>
-      <i class="fas fa-video" id="mute_video"></i>
+      <div class="main_controls">
+        <div class="main_controls_block">
+          <i class="fas fa-phone-slash" id="end_call"></i>
+        </div>
+        <div class="main_controls_block">
+          <i class="fas fa-microphone-alt" id="mute_audio"></i>
+        </div>
+        <div class="main_controls_block">
+          <i class="fas fa-video" id="mute_video"></i>
+        </div>
+        <div class="main_controls_block">
+          <!-- <button id="showMembers">Show Participants</button> -->
+          <i id="showMembers"  class="fas fa-users"></i>
+        </div>
+        <div class="main_controls_block">
+          <!-- <button id="showFiles">Show Files</button> -->
+          <i id="showFiles"  class="far fa-file"></i>
+        </div>
+      </div>
     </div>
-    <div id="main_right">
-      <button id="showMembers">Show Participants</button>
-      <button id="showFiles">Show Files</button>
-      <h1>chat</h1>
-      <div id="chat-div"></div>
-      <input type="text" id="message">
-      <i class="fas fa-paper-plane" id="send-btn"></i>
-      <iframe name="hiddenFrame" width="0" height="0" style="display: none;" src="" frameborder="0"></iframe>
-      <form method="POST" action="/" enctype="multipart/form-data" target="hiddenFrame">
-        <input type="file" name="file"/>
-        <input type="submit" value="Upload"/>
-      </form>
-      <div id="files-div"></div>
-      <div id="members-div"></div>
+    <div class="main_right">
+      <div class="main_header">
+        <h2>Chat</h2>
+      </div>
+      <div id="chat-div">
+        <ul class="messages" id="all_messages"></ul>
+      </div>
+      <div class="main_message_container">
+        <input type="text" id="message">
+        <i class="fas fa-paper-plane" id="send-btn"></i>
+        <iframe name="hiddenFrame" width="0" height="0" style="display: none;" src="" frameborder="0"></iframe>
+        <form method="POST" action="/" enctype="multipart/form-data" target="hiddenFrame">
+          <input type="file" name="file" />
+          <input type="submit" value="Upload" class="sendfile-buttons"/>
+        </form>
+      </div>
     </div>
+    <div id="files-div"></div>
+    <div id="members-div"></div>
   </main>
 </body>
 </html>
