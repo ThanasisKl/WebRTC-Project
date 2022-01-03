@@ -13,6 +13,7 @@
     grid-auto-rows: 300px;
     gap: 5px;
     margin-bottom: 350px;
+    /* margin-bottom: 50vh; */
 }
   
 video {
@@ -112,6 +113,7 @@ main{
 }
 
 #all_messages li {
+    
     color: #fff;
     list-style: none;
     border-bottom: 1px solid #3d3d42;

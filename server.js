@@ -30,20 +30,20 @@ app.get('/', (req, res) => {
 
 app.post('/',(req,res)=>{
   if(req.files){
-    console.log(req.files);
+    // console.log(req.files);
     let file = req.files.file;
     let filename = file.name;
-    console.log(filename);
-    file.mv('./public/uploads/' + filename,function(err){
+    // console.log(filename);
+    file.mv('./public/uploads/' + getFileName(filename),function(err){
       if(err){
-        // res.status(500).json({
-        //   msg:"Error from database"
-        // });
+        res.status(500).json({
+          msg:"Error from database"
+        });
         console.log("Error from database");
       }else{
-        // res.status(200).json({
-        //   msg:"File Uploaded"
-        // });
+        res.status(200).json({
+          msg:"File Uploaded"
+        });
         console.log("File Uploaded");      
       }
     });
@@ -97,3 +97,10 @@ srv = server.listen(port,() => console.log(`listening at port ${port}`));
 app.use('/peerjs', require('peer').ExpressPeerServer(srv, {
 	debug: true
 }));
+
+function getFileName(filename){   //rename file so all the files have a unique file name
+  let filename_splitted = filename.split(".");
+  let name = filename_splitted[0];
+  let file_extension = filename_splitted[1];
+  return name + uuidV4() +"." + file_extension;
+}
