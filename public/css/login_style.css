@@ -12,7 +12,8 @@ main{
     padding-top: 5em;
     background-color: #fbeec1;
     padding-left: 10px;
-    padding-bottom: 300px;
+    padding-bottom: 250px;
+    text-align: center;
 }
 
 h1{
@@ -69,3 +70,24 @@ footer{
     padding-top:20px;
     text-align: center;
 }
+
+.warnings{
+    color:red;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width:450px){
+    input{
+        width: 90%;
+    }
+
+    button{
+        font-size: 1em;
+    }
+
+    main{
+        padding-bottom: 150px;
+    }
+}
+  

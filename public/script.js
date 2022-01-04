@@ -212,3 +212,8 @@ function showParticipants(members){
     membersDiv.innerHTML = "";
   }
 }
+
+window.onload = async function(){ 
+  let height = this.screen.height;
+  document.getElementById("video-grid").style.marginBottom = `${height*0.41}px`;
+};
