@@ -166,16 +166,20 @@ document.getElementById("showFiles").addEventListener("click",  function(){
 });
 
 window.onload = async function(){   // when somebody joins call sends his name to the server to add him in participants list
-    const response = await fetch(`/add`,{
-      method:'POST',
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body:JSON.stringify({
-        name:users_name
-      })
-    }
-    );
+  let height = this.screen.height;
+  document.getElementById("video-grid").style.marginBottom = `${height*0.41}px`;
+
+  const response = await fetch(`/add`,{
+    method:'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body:JSON.stringify({
+      name:users_name
+    })
+  });
+
+  
 }
 
 async function deleteParticipant(){  // when somebody leaves call sends his name to the server to remove him from participants list
@@ -195,7 +199,13 @@ function showFiles(files_names){
   if(filesDiv.innerHTML == ""){
     filesDiv.innerHTML = `<h2 class="headers">Files</h2>`
     for(let i=0;i<files_names.length;i++){
-      filesDiv.innerHTML += `<i class="fas fa-file-alt"><a href="/uploads/${files_names[i]}" download>${files_names[i]}</a></i><br/>`
+      let name  = "";
+      if(files_names[i].length>8){
+        name = files_names[i][0] + files_names[i][1] + files_names[i][2] + files_names[i][3] +files_names[i][4] +files_names[i][5] +"..." ;
+      }else{
+        name = files_names[i];
+      }
+      filesDiv.innerHTML += `<i class="fas fa-file-alt"><a href="/uploads/${files_names[i]}" download>${name}</a></i><br/>`
     }
   }else{
     filesDiv.innerHTML = "";
@@ -213,7 +223,6 @@ function showParticipants(members){
   }
 }
 
-window.onload = async function(){ 
-  let height = this.screen.height;
-  document.getElementById("video-grid").style.marginBottom = `${height*0.41}px`;
-};
+// window.onload = async function(){ 
+  
+// };

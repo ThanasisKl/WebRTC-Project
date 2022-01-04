@@ -99,8 +99,14 @@ app.use('/peerjs', require('peer').ExpressPeerServer(srv, {
 }));
 
 function getFileName(filename){   //rename file so all the files have a unique file name
-  let filename_splitted = filename.split(".");
-  let name = filename_splitted[0];
-  let file_extension = filename_splitted[1];
-  return name + uuidV4() +"." + file_extension;
+  let file_name_array = filename.split('.');
+  let loops = file_name_array.length;
+  let name = "";
+  let file_extension = file_name_array[loops - 1]
+  for(let i=0;i<loops;i++){
+    if(i !== loops-1){
+      name += file_name_array[i] + "."
+    }
+  }
+  return name + uuidV4() +'.'+ file_extension;
 }

@@ -117,6 +117,10 @@ a{
     text-decoration: none;
 }
 
+a:hover{
+    color:blueviolet;
+}
+
 .headers{
     margin-bottom: 10px;
     padding-right:4px;
