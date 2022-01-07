@@ -131,7 +131,7 @@ document.getElementById("mute_video").addEventListener("click", function(){  //m
   muteVideo = !muteVideo;
 });
 
-document.getElementById("showMembers").addEventListener("click",  function(){
+document.getElementById("showMembers").addEventListener("click",  function(){ //get the members names from the server
   fetch(`/members`,{
     method:'PUT',
     headers:{
@@ -148,7 +148,7 @@ document.getElementById("showMembers").addEventListener("click",  function(){
   })
 });
 
-document.getElementById("showFiles").addEventListener("click",  function(){
+document.getElementById("showFiles").addEventListener("click",  function(){  // get the uploaded files from server
   fetch(`/files`,{
     method:'PUT',
     headers:{
@@ -157,7 +157,6 @@ document.getElementById("showFiles").addEventListener("click",  function(){
   })
   .then(response => response.json())
   .then(files => {
-    // console.log(files);
     showFiles(files);
   })
   .catch(err => {
@@ -167,9 +166,17 @@ document.getElementById("showFiles").addEventListener("click",  function(){
 
 window.onload = async function(){   // when somebody joins call sends his name to the server to add him in participants list
   let height = this.screen.height;
-  document.getElementById("video-grid").style.marginBottom = `${height*0.41}px`;
+  // console.log(height);
+  if(height< 900){
+    document.getElementById("video-grid").style.marginBottom = `${height*0.41}px`;
+  }else{
+    document.getElementById("video-grid").style.marginBottom = `${height*0.5}px`;
+  }
+  
+  
+  // document.getElementById("mainRight").style.height = `${height*0.41}px`;
 
-  const response = await fetch(`/add`,{
+  const response = await fetch(`/add`,{  //add the user to the members list
     method:'POST',
     headers:{
       'Content-Type': 'application/json'
@@ -195,12 +202,12 @@ async function deleteParticipant(){  // when somebody leaves call sends his name
   );
 }
 
-function showFiles(files_names){
+function showFiles(files_names){  // show to the screen the uploades files
   if(filesDiv.innerHTML == ""){
     filesDiv.innerHTML = `<h2 class="headers">Files</h2>`
     for(let i=0;i<files_names.length;i++){
       let name  = "";
-      if(files_names[i].length>8){
+      if(files_names[i].length>8){   //if the name of the file is large then put only the initials 
         name = files_names[i][0] + files_names[i][1] + files_names[i][2] + files_names[i][3] +files_names[i][4] +files_names[i][5] +"..." ;
       }else{
         name = files_names[i];
@@ -212,7 +219,7 @@ function showFiles(files_names){
   }
 }
 
-function showParticipants(members){
+function showParticipants(members){  // show the members to the screen
   if(membersDiv.innerHTML == ""){
     membersDiv.innerHTML = `<h2 class="headers">Members</h2>`;
     for(let i=0;i<members.length;i++){
@@ -222,7 +229,3 @@ function showParticipants(members){
     membersDiv.innerHTML = "";
   }
 }
-
-// window.onload = async function(){ 
-  
-// };
