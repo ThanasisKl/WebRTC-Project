@@ -51,7 +51,7 @@ app.post('/',(req,res)=>{
 });
 
 app.post('/add', (req, res) => {  //adds the name of person who joins the call
-  participants.push(req.body.name);
+  if(!participants.includes(req.body.name))participants.push(req.body.name);
   console.log("POST REQUEST (Add Participant) "+ participants);
 });
 
