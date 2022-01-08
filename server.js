@@ -85,7 +85,8 @@ io.on('connection', socket => {
         socket.broadcast.to(roomId).emit('user-disconnected', userId);    
       });
       console.log(roomId,userId);
-      socket.on('chat', function(data){ 
+      socket.on('chat', function(data){
+        console.log(data); 
         io.sockets.emit('chat', data);  
       });
     });

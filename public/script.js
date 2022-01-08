@@ -29,21 +29,21 @@ var membersDiv = document.getElementById("members-div");
 
 
 btn.addEventListener("click",function(){
-  socket.emit("chat",{message:message.value});
+  socket.emit("chat",{message:message.value,user:users_name});
   message.value = "";
 });
 
 document.querySelector('#message').addEventListener('keypress', function (e) { //when enter button is pressed and sends the message to the server
   if (e.key === 'Enter') {
-    socket.emit("chat",{message:message.value});
+    socket.emit("chat",{message:message.value,user:users_name});
     message.value = "";
   }
 });
 
 socket.on("chat",function(data){  // if message not empty then show it
   if(data.message.trim() !== ""){
-    chat.innerHTML += `<li> ${users_name}: ${data.message}</li>`;
-    console.log(users_name,data.message);
+    chat.innerHTML += `<li> ${data.user}: ${data.message}</li>`;
+    console.log(data.user,data.message);
   }
 });
 
@@ -102,6 +102,7 @@ function connectToNewUser(userId, stream) { //calls user with id userId and send
 
 document.getElementById("end_call").addEventListener("click", function(){  //when somebody leaves the call, goes to index page
   deleteParticipant();
+  localStorage.clear();
   window.location='/';
 });
 
