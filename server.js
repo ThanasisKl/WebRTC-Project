@@ -28,12 +28,10 @@ app.get('/', (req, res) => {
   res.render('index')
 });
 
-app.post('/',(req,res)=>{
+app.post('/',(req,res)=>{  //file upload
   if(req.files){
-    // console.log(req.files);
     let file = req.files.file;
     let filename = file.name;
-    // console.log(filename);
     file.mv('./public/uploads/' + getFileName(filename),function(err){
       if(err){
         res.status(500).json({
@@ -51,7 +49,7 @@ app.post('/',(req,res)=>{
 });
 
 app.post('/add', (req, res) => {  //adds the name of person who joins the call
-  if(!participants.includes(req.body.name))participants.push(req.body.name);
+  if(!participants.includes(req.body.name))participants.push(req.body.name); //reload problem
   console.log("POST REQUEST (Add Participant) "+ participants);
 });
 
@@ -66,11 +64,11 @@ app.delete('/remove', (req, res) => {  //removes the name of person who leaves t
   console.log("DELETE REQUEST (Remove Participant) "+ participants);
 });
 
-app.put('/members',(req,res)=>{ //?
+app.put('/members',(req,res)=>{ //returns the members of call
   res.json(participants);
 });
 
-app.put('/files',(req,res)=>{  //?
+app.put('/files',(req,res)=>{  //returns uploaded files
   fs.readdir(uploadsFolder, (err, files) => {
     res.json(files);
   });

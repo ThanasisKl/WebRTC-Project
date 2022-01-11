@@ -28,20 +28,20 @@ var filesDiv = document.getElementById("files-div");
 var membersDiv = document.getElementById("members-div");
 
 
-btn.addEventListener("click",function(){
+btn.addEventListener("click",function(){ //when send icon is pressed sends the message to the server
   socket.emit("chat",{message:message.value,user:users_name});
   message.value = "";
 });
 
-document.querySelector('#message').addEventListener('keypress', function (e) { //when enter button is pressed and sends the message to the server
+document.querySelector('#message').addEventListener('keypress', function (e) { //when enter button is pressed sends the message to the server
   if (e.key === 'Enter') {
     socket.emit("chat",{message:message.value,user:users_name});
     message.value = "";
   }
 });
 
-socket.on("chat",function(data){  // if message not empty then show it
-  if(data.message.trim() !== ""){
+socket.on("chat",function(data){  // receives chat messages from the server and displays them on the screen
+  if(data.message.trim() !== ""){  // if message not empty then show it
     chat.innerHTML += `<li> ${data.user}: ${data.message}</li>`;
     console.log(data.user,data.message);
   }
@@ -119,7 +119,7 @@ document.getElementById("mute_audio").addEventListener("click", function(){  //m
   muteAudio = !muteAudio;
 });
 
-document.getElementById("mute_video").addEventListener("click", function(){  //mute and unmute video
+document.getElementById("mute_video").addEventListener("click", function(){  //mute and unmute video when the mute icon is pressed
   if(!muteVideo){ 
     console.log("Mute Video");
     document.getElementById("mute_video").className = "fas fa-video-slash";
@@ -132,7 +132,7 @@ document.getElementById("mute_video").addEventListener("click", function(){  //m
   muteVideo = !muteVideo;
 });
 
-document.getElementById("showMembers").addEventListener("click",  function(){ //get the members names from the server
+document.getElementById("showMembers").addEventListener("click",  function(){ //get the call members names from the server
   fetch(`/members`,{
     method:'PUT',
     headers:{
@@ -220,7 +220,7 @@ function showFiles(files_names){  // show to the screen the uploades files
   }
 }
 
-function showParticipants(members){  // show the members to the screen
+function showParticipants(members){  // show the call members to the screen
   if(membersDiv.innerHTML == ""){
     membersDiv.innerHTML = `<h2 class="headers">Members</h2>`;
     for(let i=0;i<members.length;i++){
