@@ -8,11 +8,19 @@ header{
     border-bottom: rgb(180, 180, 180) outset 3px;
 }
 
+body{
+    margin: 0em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-height: 100vh;
+}
+
 main{
+    flex:1;
     padding-top: 5em;
     background-color: #fbeec1;
     padding-left: 10px;
-    padding-bottom: 250px;
     text-align: center;
 }
 
