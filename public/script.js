@@ -168,11 +168,11 @@ document.getElementById("showFiles").addEventListener("click",  function(){  // 
 window.onload = async function(){   // when somebody joins call sends his name to the server to add him in participants list
   let height = this.screen.height;
   // console.log(height);
-  if(height< 900){
-    document.getElementById("video-grid").style.marginBottom = `${height*0.41}px`;
-  }else{
-    document.getElementById("video-grid").style.marginBottom = `${height*0.5}px`;
-  }
+  // if(height< 900){
+  //   document.getElementById("video-grid").style.marginBottom = `${height*0.41}px`;
+  // }else{
+  //   document.getElementById("video-grid").style.marginBottom = `${height*0.5}px`;
+  // }
   
   
   // document.getElementById("mainRight").style.height = `${height*0.41}px`;
